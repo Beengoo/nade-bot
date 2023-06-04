@@ -1,0 +1,13 @@
+{
+  "botLvlUpAlertChannel": 1109632531139150017,
+  "roleIdsBlackList": [],
+  "channelIdsBlockList": [],
+  "XPPerMessage": [
+    1,
+    5
+  ],
+  "XPPerSeconds": 60,
+  "useRankLeveling":  true,
+  "stackRoles": false,
+  "lvlRoles": {}
+}

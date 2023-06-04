@@ -1,0 +1,13 @@
+import ast
+
+from discord import Message
+from discord.ext.commands import Cog
+
+import utils
+
+
+class Counting3(Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self.data = utils.read_json("assets/databases/counting/users.json")
+        self.conf = utils.read_json("assets/configs/counting.json")

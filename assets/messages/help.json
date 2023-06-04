@@ -1,0 +1,21 @@
+{
+  "command-description": "Список команд бота",
+  "embed-color": [194, 140, 14],
+  "embed-title": "Список команд бота",
+  "embed-description": [
+    "`/help` - Це меню",
+    "`/rank` - Дізнатися свій ранг або когось іншого",
+    "`/war-states` - Остання інформація про втрати раісії"
+  ],
+  "facts": [
+    "Ти з надією отримати ще один факт будеш кожен раз писати одну і ту саму команду.",
+    "Факт в тому, що його немає.",
+    "Ця команда без фактів використовуватиметься майже ніколи",
+    "Раніше я був Нейдом, тепер я тостер:(",
+    "Nb lsqcyj wt gthtrkfd&",
+    "Ця команда не використовувалась би знову і знову, якби хтось не сказав що в ній є факти.",
+    "Рахувати це не моє.",
+    "aHR0cHM6Ly9wYXN0ZWJpbi5jb20vdFF4UHFqVmk=.TUV0TVVYTk9RelpNUTBSU2FIUkRNVWxPUjBNd1dVUlJkVTVIU0RCYVdXY3dUR1pSYzA1RE5qQk1OMUYwVGtNck1FeE1VWE5PUXprd1RHcFJkVk5FVW1kMFF6RXdUSEpTWjJSSFEweG5QVDA9fDBLTFFzTkM2TENEUmh0QzFJTkdDMFlEUXVOR0gwWllnMExmUXNOQzYwTDdRdE5DKzBMTFFzTkM5MExqUXVTRFJndEMxMExyUmdkR0NMZz09",
+    "Дивня ця ваша base64"
+  ]
+}

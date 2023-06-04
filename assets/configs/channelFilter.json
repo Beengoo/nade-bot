@@ -1,0 +1,13 @@
+{
+  "971024065877934150": {
+    "attachments_format_filter": [
+      "png", "jpg", "jpeg", "webp", "ogg", "mp3", "wav", "ma4", "aac", "webm", "mp4", "gif", "avi"
+    ],
+    "make_thread": true,
+    "ignore_links": false,
+    "thread_name": "Коментарі",
+    "ignore_mods": true,
+    "add_reactions": true,
+    "reactions_chars": []
+  }
+}
