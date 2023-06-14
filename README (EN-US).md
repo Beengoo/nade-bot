@@ -4,7 +4,7 @@
 
 Discord open source bot for server [**&lt;Підвал Нейда>**](https://discord.gg/nadecgt)
 
-[Українська версія]()
+[Українська версія](https://github.com/Beengoo/nade-bot/blob/master/README.md)
 
 ## Features
 *This version is public and may differ substantially from the original on [server](https://discord.gg/nadecgt)*
