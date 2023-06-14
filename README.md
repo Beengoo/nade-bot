@@ -1,7 +1,7 @@
 # NadeBot (публічна версія)
 
 
-
+## Don't know Ukrainian? [English version](https://github.com/Beengoo/nade-bot/blob/master/README%20(EN-US).md)
 Discord бот з відкриитим кодом для серверу [**&lt;Підвал Нейда>**](https://discord.gg/nadecgt)
 
 
