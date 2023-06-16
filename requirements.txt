@@ -3,3 +3,4 @@ discord.py==2.1.1
 discord_webhook
 aiofiles==23.1.0
 aiosqlite3==0.3.0
+pytube==15.0.0
