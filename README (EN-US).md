@@ -1,4 +1,4 @@
-# NadeBot (Publick)
+# NadeBot (Public / v1.4.9)
 
 
 
