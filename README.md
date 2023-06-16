@@ -1,4 +1,4 @@
-# NadeBot (публічна версія)
+# NadeBot (публічна версія \ v1.4.9)
 
 
 ## Don't know Ukrainian? [English version](https://github.com/Beengoo/nade-bot/blob/master/README%20(EN-US).md)
