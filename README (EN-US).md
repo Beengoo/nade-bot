@@ -19,6 +19,7 @@ Discord open source bot for server [**&lt;Підвал Нейда>**](https://di
 - `/ctxmgr` - Context menu manage command (raw)
 - `/exp` - Change the number of exp for server members.
 - `/levelrole` - Set rewards for reaching a certain level.
+- `/ytdl` - Download videos from YouTube
 
 ### Functions
  
