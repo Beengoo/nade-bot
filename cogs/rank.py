@@ -1,7 +1,6 @@
 import asyncio
 import json
 import random
-import threading
 import traceback
 
 import aiosqlite3
@@ -11,25 +10,6 @@ from discord.app_commands import Choice
 from discord.ext.commands import Cog, Bot
 
 import utils
-
-
-async def check_blocked_role(author: Member):
-    data = utils.synchron_read_json("assets/configs/rank.json")["roleIdsBlackList"]
-    user_roles = []
-    for roleObj in author.roles:
-        user_roles.append(roleObj.id)
-    for id_ in data:
-        if id_ in user_roles:
-            return True
-    return False
-
-
-async def check_blocked_channel(channel):
-    data = utils.synchron_read_json("assets/configs/rank.json")["roleIdsBlackList"]
-    for id_ in data:
-        if channel.id == id_:
-            return True
-    return False
 
 
 async def getAllDB(bot: Bot):
@@ -82,7 +62,8 @@ async def addExpData(bot: Bot, member: Member, type_: str, exp: float = 0):
     if not xp_:
         await bot.db.execute(f"INSERT INTO levels (level, text_xp, voice_xp, user) VALUES (?, ?, ?, ?)", (1, 0, 0,
                                                                                                           member.id))
-        await bot.db.commit()
+        if bot.db.in_transaction:
+            await bot.db.commit()
 
     xp_ = xp_[0] if xp_ is not None else 0
 
@@ -170,7 +151,7 @@ async def checkRoles(bot: Bot, member: Member):
         await member.add_roles(need_reward)
 
 
-class Rank2(Cog):
+class Rank2RankLoop(Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
         self.temp_voice_info = {}
@@ -198,9 +179,11 @@ class Rank2(Cog):
         guild = self.bot.get_guild(utils.synchron_read_json("config.json")["targetGuildId"])
         for memberId in dict(self.temp_voice_info):
             targeMember = guild.get_member(int(memberId))
-            if targeMember.voice is None \
-                    or await check_blocked_channel(guild.get_channel(self.temp_voice_info[memberId]['channel_id'])) \
-                    or await check_blocked_role(targeMember):
+            if targeMember is None:
+                pass
+            elif targeMember.voice is None \
+                    or await utils.check_blocked_channel(guild.get_channel(self.temp_voice_info[memberId]['channel_id'])) \
+                    or await utils.check_blocked_role(targeMember):
                 self.temp_voice_info.pop(memberId)
             else:
                 channelID = targeMember.voice.channel.id
@@ -271,7 +254,6 @@ class Rank2(Cog):
 
     async def add_voice_exp(self):
         try:
-            config = await utils.read_json("assets/configs/rank.json")
             guild = self.bot.get_guild(utils.synchron_read_json("config.json")["targetGuildId"])
             await self.control_shot()
             for memberId in dict(self.temp_voice_info):
@@ -355,6 +337,11 @@ class Rank2(Cog):
                             "is_streaming": member.voice.self_stream,
                             "is_turn_camera": member.voice.self_video,
                         }
+
+
+class Rank2Commands(Cog):
+    def __init__(self, bot: Bot):
+        self.bot = bot
 
     @app_commands.command(
         name="rank",
@@ -508,4 +495,5 @@ class Rank2(Cog):
 
 
 async def setup(bot: Bot):
-    await bot.add_cog(Rank2(bot))
+    await bot.add_cog(Rank2RankLoop(bot))
+    await bot.add_cog(Rank2Commands(bot))
