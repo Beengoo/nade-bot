@@ -286,7 +286,8 @@ class Rank2RankLoop(Cog):
                         else:
                             if len(target_member.voice.channel.members) > 1:
                                 exp += len(target_member.voice.channel.members) / 4 + 2
-                            if target_member in target_member.voice.channel.speakers:
+                            if isinstance(target_member.voice.channel, StageChannel) and\
+                                    target_member in target_member.voice.channel.speakers:
                                 exp += 3.75
                             if target_member.voice.self_stream:
                                 exp += 0.75
