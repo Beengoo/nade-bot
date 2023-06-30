@@ -20,6 +20,7 @@ Discord open source bot for server [**&lt;Підвал Нейда>**](https://di
 - `/exp` - Change the number of exp for server members.
 - `/levelrole` - Set rewards for reaching a certain level.
 - `/ytdl` - Download videos from YouTube
+- `/lock_channel` and `/unlock_channel` - Lock channels for an individual role/member
 
 ### Functions
  
