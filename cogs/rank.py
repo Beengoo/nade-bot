@@ -112,6 +112,10 @@ def exp_to_next_level(exp):
     return [exp_needed, progress_percentage]
 
 
+def level_to_exp(level):
+    return int(level ** 2.92)
+
+
 async def checkRoles(bot: Bot, member: Member):
     config = await utils.read_json("assets/configs/rank.json")
     user_rank = await getRankData(bot, member)
@@ -182,7 +186,8 @@ class Rank2RankLoop(Cog):
             if targeMember is None:
                 pass
             elif targeMember.voice is None \
-                    or await utils.check_blocked_channel(guild.get_channel(self.temp_voice_info[memberId]['channel_id'])) \
+                    or await utils.check_blocked_channel(
+                guild.get_channel(self.temp_voice_info[memberId]['channel_id'])) \
                     or await utils.check_blocked_role(targeMember):
                 self.temp_voice_info.pop(memberId)
             else:
@@ -286,7 +291,7 @@ class Rank2RankLoop(Cog):
                         else:
                             if len(target_member.voice.channel.members) > 1:
                                 exp += len(target_member.voice.channel.members) / 4 + 2
-                            if isinstance(target_member.voice.channel, StageChannel) and\
+                            if isinstance(target_member.voice.channel, StageChannel) and \
                                     target_member in target_member.voice.channel.speakers:
                                 exp += 3.75
                             if target_member.voice.self_stream:
@@ -376,7 +381,8 @@ class Rank2Commands(Cog):
         action="Дія",
         c_type_="Тип exp",
         member="Учасник",
-        exp="Кількість exp"
+        exp="Кількість exp",
+        lvl="Рівень"
     )
     @app_commands.choices(
         action=[
@@ -391,7 +397,7 @@ class Rank2Commands(Cog):
         ]
     )
     async def onExpExec(self, interaction: Interaction, action: str, c_type_: str, member: Member = None,
-                        exp: float = 0.0):
+                        exp: float = 0.0, lvl: int = None):
         if not utils.isDM(interaction):
             return
         lang = utils.synchron_read_json("assets/messages/rank.json")
@@ -399,17 +405,25 @@ class Rank2Commands(Cog):
             member = interaction.user
 
         user_data = await getRankData(self.bot, member)
-        print(user_data)
         type_ = "text" if c_type_ == "text" else "voice"
-
-        if action == "add":
-            await addExpData(self.bot, member, type_, user_data[type_ + "_xp"] + exp)
-        elif action == "take":
-            await setExpData(self.bot, member, exp=user_data[type_ + "_xp"] - exp, type_=c_type_)
-        elif action == "set":
-            await setExpData(self.bot, member, exp=exp, type_=c_type_)
-        elif action == "clear":
-            await setExpData(self.bot, member, exp=0, type_=c_type_)
+        if lvl is None:
+            if action == "add":
+                await addExpData(self.bot, member, type_, user_data[type_ + "_xp"] + exp)
+            elif action == "take":
+                await setExpData(self.bot, member, exp=user_data[type_ + "_xp"] - exp, type_=c_type_)
+            elif action == "set":
+                await setExpData(self.bot, member, exp=exp, type_=c_type_)
+            elif action == "clear":
+                await setExpData(self.bot, member, exp=0, type_=c_type_)
+        else:
+            if action == "add":
+                await addExpData(self.bot, member, type_, user_data[type_ + "_xp"] + level_to_exp(lvl))
+            elif action == "take":
+                await setExpData(self.bot, member, exp=user_data[type_ + "_xp"] - level_to_exp(lvl), type_=c_type_)
+            elif action == "set":
+                await setExpData(self.bot, member, exp=level_to_exp(lvl), type_=c_type_)
+            elif action == "clear":
+                await setExpData(self.bot, member, exp=0, type_=c_type_)
 
         await checkLevel(self.bot, member)
         await interaction.response.send_message(content=lang['expEdited'].format(member))
